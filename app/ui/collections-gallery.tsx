@@ -9,10 +9,10 @@ export default function Gallery() {
         { id: 3, url: "/collections/3.png" },
         { id: 4, url: "/collections/4.png" },
     ];
-    //const max = Array.from({length: images.length - 2}, (_, i) => i + 1);//[1,2,3]
-    //max.map((n) => ());
     const start = 256;
-    let left = start;
+    const next = 440;
+    const toArray = Array.from({length: images.length - 1}, (_, i) => i + 1).map((n) => ({x: start - 440*n, delay: 800}));
+    toArray.push({x: start, delay: 800});
     const springs = useSpring({
         config: {
             mass: 1,
@@ -20,14 +20,9 @@ export default function Gallery() {
             tension: 100,
         },
         from: {
-            x: left = start,
+            x: start,
         },
-        to: [
-            {x: left -= 440, delay: 800},
-            {x: left -= 440, delay: 800},
-            {x: left -= 440, delay: 800},
-            {x: left = start, delay: 800},
-        ],
+        to: toArray,
         loop: true,
     });
 
