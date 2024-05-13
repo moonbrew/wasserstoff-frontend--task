@@ -9,10 +9,11 @@ export default function Gallery() {
         { id: 3, url: "/collections/3.png" },
         { id: 4, url: "/collections/4.png" },
     ];
-    const max = (images.length - 1) * 440;
+    //const max = Array.from({length: images.length - 2}, (_, i) => i + 1);//[1,2,3]
+    //max.map((n) => ());
     const start = 256;
     let left = start;
-    const [springs, api] = useSpring(() => ({
+    const springs = useSpring({
         config: {
             mass: 1,
             friction: 15,
@@ -28,31 +29,15 @@ export default function Gallery() {
             {x: left = start, delay: 800},
         ],
         loop: true,
-    }), []);
+    });
 
-    const handleRightClick = () => {//will be hooked to buttons later
-        api.start({
-            to: {
-                x: left = left > start - max ? left - 440 : start,
-            },
-        });
-        //console.log(`Move Right: ${left}`);
-    }
-    const handleLeftClick = () => {//will be hooked to buttons later
-        api.start({
-            to: {
-                x: left = left < start ? left + 440 : start - max,
-            },
-        });
-        console.log(`Move Left: ${left}`);
-    }
+
 
     return (
         <div className="window absolute top-36 h-full w-[868px] overflow-hidden">
             <animated.div
-                onClick={handleLeftClick}
                 style={{
-                    ...springs
+                    ...springs,
                 }}
                 className="roll flex gap-7 absolute left-64">
 
@@ -69,11 +54,8 @@ export default function Gallery() {
                                 height={630}
                             />
                         </div>
-                    )
-                })}
-
+                    )})}
             </animated.div>
-
         </div>
     )
 }
