@@ -3,7 +3,7 @@ import { animated, useSpring } from '@react-spring/web';
 import Image from "next/image";
 
 export default function Gallery() {
-    const images = [
+    const images = [//should be read from database later
         { id: 1, url: "/collections/1.png" },
         { id: 2, url: "/collections/2.png" },
         { id: 3, url: "/collections/3.png" },
@@ -13,34 +13,38 @@ export default function Gallery() {
     const start = 256;
     let left = start;
     const [springs, api] = useSpring(() => ({
-        x: left,
+        config: {
+            mass: 1,
+            friction: 15,
+            tension: 100,
+        },
+        from: {
+            x: left = start,
+        },
+        to: [
+            {x: left -= 440, delay: 800},
+            {x: left -= 440, delay: 800},
+            {x: left -= 440, delay: 800},
+            {x: left = start, delay: 800},
+        ],
+        loop: true,
     }), []);
 
-    const handleRightClick = () => {
+    const handleRightClick = () => {//will be hooked to buttons later
         api.start({
-            config: {
-                mass: 1,
-                friction: 15,
-                tension: 100,
-            },
             to: {
                 x: left = left > start - max ? left - 440 : start,
             },
         });
         //console.log(`Move Right: ${left}`);
     }
-    const handleLeftClick = () => {
+    const handleLeftClick = () => {//will be hooked to buttons later
         api.start({
-            config: {
-                mass: 1,
-                friction: 15,
-                tension: 100,
-            },
             to: {
                 x: left = left < start ? left + 440 : start - max,
             },
         });
-        //console.log(`Move Left: ${left}`);
+        console.log(`Move Left: ${left}`);
     }
 
     return (
