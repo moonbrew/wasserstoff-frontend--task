@@ -58,7 +58,7 @@ export default function Gallery() {
 
                 {images.map((image) => {
                     return (
-                        <div key={image.id} className="shrink-0 rounded-lg">
+                        <div key={image.id} className="shrink-0">
                             <div>
                                 Lunar Palace:(ft. Kanye west)
                             </div>
