@@ -1,7 +1,6 @@
 import { lexend_700, lexend_800 } from "@/app/ui/fonts";
 import Image from "next/image";
 import Gallery from "./ui/collections-gallery";
-import Animation from "./ui/animation";
 
 export default function Page() {
 
