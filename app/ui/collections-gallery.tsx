@@ -1,5 +1,6 @@
 'use client'
 import { animated, useSpring } from '@react-spring/web';
+import { lexend_bold } from "@/app/ui/fonts";
 import Image from "next/image";
 
 export default function Gallery() {
@@ -9,10 +10,10 @@ export default function Gallery() {
         { id: 3, url: "/collections/3.png" },
         { id: 4, url: "/collections/4.png" },
     ];
-    const start = 256;
+    const start = 262;
     const next = 440;
-    const toArray = Array.from({length: images.length - 1}, (_, i) => i + 1).map((n) => ({x: start - 440*n, delay: 800}));
-    toArray.push({x: start, delay: 800});
+    const toArray = Array.from({ length: images.length - 1 }, (_, i) => i + 1).map((n) => ({ x: start - next * n, delay: 800 }));
+    toArray.push({ x: start, delay: 800 });
     const springs = useSpring({
         config: {
             mass: 1,
@@ -29,18 +30,19 @@ export default function Gallery() {
 
 
     return (
-        <div className="window absolute top-36 h-full w-[868px] overflow-hidden">
+        <div className="window absolute top-36 h-full w-[830px] overflow-hidden">
             <animated.div
                 style={{
                     ...springs,
                 }}
-                className="roll flex gap-7 absolute left-64">
+                className="roll flex gap-7">
 
                 {images.map((image) => {
                     return (
                         <div key={image.id} className="shrink-0">
-                            <div>
-                                Lunar Palace:(ft. Kanye west)
+                            <div className={`${lexend_bold.className} text-white text-[32px] leading-8`}>
+                                Lunar Palace:
+                                <div className='text-2xl'>(ft. Kanye west)</div>
                             </div>
                             <Image
                                 src={image.url}
@@ -49,7 +51,8 @@ export default function Gallery() {
                                 height={630}
                             />
                         </div>
-                    )})}
+                    )
+                })}
             </animated.div>
         </div>
     )
